@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
-    // ==============================
-    // 1️⃣ Display All Books
-    // ==============================
+
+    // Display All Books
+
     public function index()
     {
         $books = DB::table('books')
@@ -25,9 +25,9 @@ class BookController extends Controller
         return view('books.index', compact('books'));
     }
 
-    // ==============================
-    // 2️⃣ Show Create Form
-    // ==============================
+
+    // Show Create Form
+
     public function create()
     {
         $categories = DB::table('categories')->get();
@@ -36,9 +36,9 @@ class BookController extends Controller
         return view('books.create', compact('categories', 'authors'));
     }
 
-    // ==============================
-    // 3️⃣ Store New Book
-    // ==============================
+
+    // Store New Book
+
     public function store(Request $request)
     {
         $request->validate([
@@ -84,9 +84,9 @@ class BookController extends Controller
             ->with('success', 'Book created successfully.');
     }
 
-    // ==============================
-    // 4️⃣ Show Edit Form
-    // ==============================
+
+    // Show Edit Form
+
     public function edit($id)
     {
         $book = DB::table('books')->where('id', $id)->first();
@@ -101,9 +101,9 @@ class BookController extends Controller
         return view('books.edit', compact('book', 'categories', 'authors'));
     }
 
-    // ==============================
-    // 5️⃣ Update Book
-    // ==============================
+
+    // Update Book
+
     public function update(Request $request, $id)
     {
         $book = DB::table('books')->where('id', $id)->first();
@@ -146,9 +146,9 @@ class BookController extends Controller
             ->with('success', 'Book updated successfully.');
     }
 
-    // ==============================
-    // 6️⃣ Delete Book
-    // ==============================
+
+    // Delete Book
+
     public function destroy($id)
     {
         $book = DB::table('books')->where('id', $id)->first();
