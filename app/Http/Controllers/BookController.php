@@ -48,6 +48,7 @@ class BookController extends Controller
             'category_id' => ['required', 'integer', 'exists:categories,id'],
             'cover_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'description' => ['nullable', 'string'],
+            'status' => ['required', 'in:available,borrowed,reserved'],
             'published_at' => ['nullable', 'date'],
         ], [
             'title.required' => 'Book title is required.',
@@ -75,6 +76,7 @@ class BookController extends Controller
             'category_id' => $request->category_id,
             'cover_image' => $coverPath,
             'description' => $request->description ? trim($request->description) : null,
+            'status' => $request->status,
             'published_at' => $request->published_at,
             'created_at' => now(),
             'updated_at' => now(),
@@ -119,6 +121,7 @@ class BookController extends Controller
             'category_id' => ['required', 'integer', 'exists:categories,id'],
             'cover_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'description' => ['nullable', 'string'],
+            'status' => ['required', 'in:available,borrowed,reserved'],
             'published_at' => ['nullable', 'date'],
         ], [
             'isbn.unique' => 'This ISBN already exists.',
@@ -138,6 +141,7 @@ class BookController extends Controller
             'category_id' => $request->category_id,
             'cover_image' => $coverPath,
             'description' => $request->description ? trim($request->description) : null,
+            'status' => $request->status,
             'published_at' => $request->published_at,
             'updated_at' => now(),
         ]);

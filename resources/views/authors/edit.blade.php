@@ -3,8 +3,8 @@
 @section('header')
 <header class="bg-white shadow-sm">
     <div class="px-6 lg:px-8 py-4">
-        <h1 class="text-xl font-bold text-gray-800">Create Category</h1>
-        <p class="text-sm text-gray-500">Add a new category to the collection</p>
+        <h1 class="text-xl font-bold text-gray-800">Edit Author</h1>
+        <p class="text-sm text-gray-500">Update author information</p>
     </div>
 </header>
 @endsection
@@ -15,54 +15,69 @@
     <div class="bg-white rounded-xl shadow overflow-hidden">
         <div class="bg-gradient-to-r from-indigo-500 to-purple-600 h-2"></div>
 
-        <form action="{{ route('categories.store') }}"
+        <form action="{{ route('authors.update', $author->id) }}"
               method="POST"
               class="p-6 space-y-6">
             @csrf
+            @method('PUT')
 
+            {{-- NAME --}}
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">
-                    Category Name *
+                    Name *
                 </label>
                 <input type="text"
                        name="name"
-                       value="{{ old('name') }}"
+                       value="{{ old('name', $author->name) }}"
                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                 @error('name')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
+            {{-- EMAIL --}}
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">
-                    Description
+                    Email *
                 </label>
-                <textarea name="description"
-                          rows="3"
-                          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">{{ old('description') }}</textarea>
+                <input type="email"
+                       name="email"
+                       value="{{ old('email', $author->email) }}"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                @error('email')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
+            {{-- STATUS --}}
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">
                     Status *
                 </label>
                 <select name="status"
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
+                    <option value="active"
+                        {{ old('status', $author->status) == 'active' ? 'selected' : '' }}>
+                        Active
+                    </option>
+                    <option value="inactive"
+                        {{ old('status', $author->status) == 'inactive' ? 'selected' : '' }}>
+                        Inactive
+                    </option>
                 </select>
             </div>
 
-            <div class="flex justify-end space-x-4 pt-4">
+            {{-- BUTTONS --}}
+            <div class="flex items-center justify-end space-x-4 pt-4">
 
-                <a href="{{ route('categories.index') }}"
-                   class="px-6 py-3 border border-gray-300 rounded-lg text-gray-600">
+                <a href="{{ route('authors.index') }}"
+                   class="px-6 py-3 border border-gray-300 rounded-lg text-gray-600 hover:text-gray-800">
                     Cancel
                 </a>
 
                 <button type="submit"
                         class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg shadow-md">
-                    Create Category
+                    Update Author
                 </button>
 
             </div>
